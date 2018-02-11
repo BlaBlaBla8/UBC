@@ -13,6 +13,11 @@
  *= require_tree .
  *= require_self
  */
+.user-profile-form {
+    border : none;
+    width: 50%;
+}
+
 .login-box{
     margin-top: 130px;
     width: 100%
