@@ -47,10 +47,12 @@
         </button>
         <a class="navbar-brand" href="#">UBC</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "My Profile", user_profile_index_path, :method => :get  %></li>
-            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete  %></li>
-          </ul>
+          <% if user_signed_in? %>
+             <%= render :partial => 'navigation_bar/navbar_signed_in' %>
+          <% else %>
+              <%= render :partial => 'navigation_bar/navbar_login_page' %>
+              <% puts 'heg' %>
+          <% end %>
         </div>
       </div>
     </div>

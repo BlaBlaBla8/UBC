@@ -1,4 +1,5 @@
 Rails.application.configure do
+  # require 'tlsmail'
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -25,11 +26,7 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
-
-  config.action_mailer.perform_caching = false
+  
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -51,4 +48,26 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+
+  # Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  config.action_mailer.raise_delivery_errors = true
+
+  config.action_mailer.sendmail_settings = {
+
+      domain:           "viteon.co.uk",
+      address:          'sendmail.gmail.com',
+      port:             587,
+      tls:              true,
+      authentication:   :plain,
+      user_name:        'p.leonid1094@gmail.com',
+      password:         'Tytoalba8',
+      enable_starttls_auto: true
+
+
+  }
 end

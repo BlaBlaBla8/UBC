@@ -1,4 +1,6 @@
 <%= bootstrap_devise_error_messages! %>
+<div class="login-box row ">
+  <div class="col-lg-6 col-lg-offset-3">
 <div class="panel panel-default devise-bs">
   <div class="panel-heading">
     <h4><%= t('.change_your_password', default: 'Change your password') %></h4>
@@ -21,4 +23,6 @@
     <% end %>
   </div>
 </div>
-<%= render 'devise/shared/links' %>
+</div>
+</div>
+<%#= render 'devise/shared/links' %>
