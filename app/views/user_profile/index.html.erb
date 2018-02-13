@@ -1,50 +1,62 @@
-
 <div class="container">
-
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-1 toppad" >
+  <%= render :partial => 'change_password' %>
+  <div class="row" id="user-profile-panel">
+    <div class="col-xs-12 col-sm-12 col-md-10  col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1 toppad">
       <div class="panel panel-info">
         <div class="panel-heading">
           <h3 class="panel-title" style="text-align: center"><%= @user.nickname %></h3>
         </div>
-        <%= form_for @user, :action => 'update', url: user_profile_update_path,html: { method: :put, role: 'form' } do |f|%>
-        <div class="panel-body">
-          <div class="row">
-            <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
-            <div class="col-md-9 col-lg-9 ">
-              <table class="table table-user-information">
-                <tbody>
-                <%= hidden_field_tag :id, @user.id %>
-                <tr>
-                  <td>First Name</td>
-                  <td> <%= text_field 'user', 'first_name', value: @user.first_name, class: 'user-profile-form' %>
-                </tr>
-                <tr>
-                  <td>Last Name</td>
-                  <td> <%= text_field 'user', 'last_name', value: @user.last_name , class: 'user-profile-form'%>
-                </tr>
-                <tr>
-                  <td>Home Address</td>
-                  <td> <%= text_field 'user', 'address', value: @user.address , class: 'user-profile-form' %>
-                </tr>
-                <tr>
-                  <td>Email</td>
-                  <td> <%= text_field 'user', 'email', value: @user.email, class: 'user-profile-form' %>
-                </tr>
-                <tr>
-                <td>Phone Number</td>
-                  <td> <%= text_field 'user', 'phone_number', value: @user.phone_number, class: 'user-profile-form' %>
-                   </td>
-                </tr>
+        <%= form_tag user_profile_update_path do %>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">
+                  <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">
+                </div>
+                <div class="col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                    <tr>
+                      <td>First Name</td>
+                      <td> <%= text_field 'user', 'first_name', value: @user.first_name, class: 'user-profile-form' %>
+                    </tr>
+                    <tr>
+                      <td>Last Name</td>
+                      <td> <%= text_field 'user', 'last_name', value: @user.last_name, class: 'user-profile-form' %>
+                    </tr>
+                    <tr>
+                      <td>Home Address</td>
+                      <td> <%= text_field 'user', 'address', value: @user.address, class: 'user-profile-form' %>
+                    </tr>
+                    <tr>
+                      <td>Email</td>
+                      <td> <%= text_field 'user', 'email', value: @user.email, class: 'user-profile-form' %>
+                    </tr>
+                    <tr>
+                      <td>Phone Number</td>
+                      <td> <%= text_field 'user', 'phone_number', value: @user.phone_number, class: 'user-profile-form' %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Date of Birth</td>
+                      <td> <%= text_field 'user', 'date_of_birth', value: @user.date_of_birth, class: 'user-profile-form' %>
+                      </td>
+                    </tr>
 
-                </tbody>
-              </table>
-
-              <%= submit_tag 'Save', class: 'btn btn-primary' %>
+                    </tbody>
+                  </table>
+                  <div class="row">
+                    <div class="col col-lg-5 col-md-9 col-xs-9">
+                      <button class="btn btn-info" onclick="showPanel(true)"  id="change-password-button" type="button">Change my password</button>
+                    </div>
+                    <div class="col col-lg-7 col-md-3 col-xs-3">
+                      <%= submit_tag 'Save', class: 'btn btn-primary' %>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-            <% end %>
+        <% end %>
+
         <div class="panel-footer">
 
         </div>
@@ -53,3 +65,20 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+    function showPanel(showPanel) {
+
+        if (showPanel) {
+            $('#change-password-panel').show();
+            $('#user-profile-panel').hide();
+        } else {
+            $('#change-password-panel').hide();
+            $('#user-profile-panel').show();
+
+        }
+
+    }
+</script>
