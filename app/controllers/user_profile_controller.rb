@@ -2,53 +2,44 @@ class UserProfileController < ApplicationController
 
   def index
     @user = User.find_by_id(current_user.id)
-
   end
 
   def update
-    @user = get_current_user
-    begin
-      User.transaction do
-        @user.update_attributes!(user_params)
+    password_changed = false
+    user_data = user_params
+    @user = current_user
+
+    if user_data
+      if params[:update_password]
+        password_changed = update_password(user_data)
+      elsif params[:update_profile]
+        @user.update_attributes(user_data)
+      else
+        flash[:error] = 'Something went wrong, please try again'
+      end
+
+      if password_changed
+        bypass_sign_in(@user)
+      end
+
+      if @user.errors.any?
+        flash[:error] = @user.errors.full_messages.first
+      else
         flash[:success] = "Your profile has been updated"
       end
-    rescue
-      flash[:error] = @user.errors.full_messages.first if @user.errors.any?
+
+      redirect_to action: 'index'
     end
-    redirect_to action: 'index'
-  end
-
-  def change_password
-
-
-    user = get_current_user
-
-    password_validation_status = {:valid => true, :msg => 'Your password has been updated'}
-
-    password_validation_status = process_password_validation(params[:user][:current_password], password_validation_status, user)
-
-    if password_validation_status[:valid]
-      flash[:success] = password_validation_status[:msg]
-
-      user.update_attributes(password: params[:user][:new_password])
-      bypass_sign_in(user)
-
-    else
-      flash[:danger] = password_validation_status[:msg]
-    end
-    redirect_to action: 'index'
   end
 
 
-  def process_password_validation(current_password, password_validation_status, current_user)
-
-    if current_password.empty?
-      password_validation_status = {:valid => false, :msg => 'Please, enter your current password'}
+  def update_password(user_data)
+    if @user.update_with_password(user_data)
+      flash[:notice] = 'Your password has been changed'
+      true
     else
-      password_validation_status = {:valid => false, :msg => 'You entered incorrect password'} unless current_user.valid_password?(current_password)
+      false
     end
-
-    password_validation_status
   end
 
 
@@ -63,7 +54,11 @@ class UserProfileController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :first_name, :last_name, :nickname, :date_of_birth, :phone_number, :address)
+    params.require(:user).permit(:email, :first_name,
+                                 :last_name, :nickname,
+                                 :date_of_birth, :phone_number,
+                                 :address , :current_password,
+                                 :password, :password_confirmation,)
   end
 
 end

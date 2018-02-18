@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   root 'speaking_room#index', to: 'speaking_room#index'
 
   get 'user_profile/index', to: 'user_profile#index'
-  post 'user_profile/update', to: 'user_profile#update'
-  put 'user_profile/change_password', to: 'user_profile#change_password'
+  match 'user_profile/update', to: 'user_profile#update', via: [:get, :post, :put]
 
 end
