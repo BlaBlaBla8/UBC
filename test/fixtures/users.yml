@@ -4,7 +4,28 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one:
+  id: 35927
+  email: machine@fleetsmart.co.uk
+  encrypted_password: $2a$11$v6aNEYStCNNAT48vFt/K8uaJQnh.gl/52/uEHlYXF16Xd06p1A/Wm
+  reset_password_token: null
+  reset_password_sent_at: null
+  remember_created_at: null
+  sign_in_count: 1
+  current_sign_in_at: 2018-02-20 15:20:03
+  last_sign_in_at: 2018-02-20 15:20:03
+  current_sign_in_ip: 127.0.0.1
+  last_sign_in_ip: 127.0.0.1
+  created_at: 2018-02-20 15:20:03
+  updated_at: 2018-02-20 15:25:03
+  first_name: ACME_Wigan
+  last_name: Test
+  nickname: Sloww
+  date_of_birth: 1994-10-19
+  phone_number: 07676912554
+  address: MyString
+
+
 # column: value
 #
 two: {}

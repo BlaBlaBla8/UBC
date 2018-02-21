@@ -6,5 +6,6 @@ Rails.application.routes.draw do
 
   get 'user_profile/index', to: 'user_profile#index'
   match 'user_profile/update', to: 'user_profile#update', via: [:get, :post, :put]
+  put 'user_profile/update', to: 'user_profile#update'
 
 end
